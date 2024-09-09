@@ -1,0 +1,8 @@
+flask
+Gunicorn
+pandas
+plotly.express
+os
+render_template
+request
+jsonify
