@@ -190,6 +190,88 @@
             </div>
         </div>
     </div>
+
+    <div class="container mx-auto py-8">
+
+        <!-- Encabezado -->
+        <h1 class="text-4xl font-bold text-center mb-6">Cargar archivo JSON</h1>
+
+        <!-- Formulario de subida de archivos -->
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="fileInput" class="block text-lg font-medium text-gray-700">Subir archivo</label>
+                    <input type="file" id="fileInput" name="file" accept=".json"
+                        class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">Subir
+                    archivo</button>
+            </form>
+        </div>
+
+        <!-- Mensajes de éxito o error -->
+        <div id="message" class="mt-6 text-center"></div>
+
+        <!-- Espacio para gráficos -->
+        <h2 class="text-2xl font-semibold text-center mt-10">Gráfico generado</h2>
+        <div id="plot" class="mt-5"></div>
+    </div>
+
+    <!-- Importar la librería de Plotly para gráficos -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Script para manejar la subida de archivos y generar gráficos -->
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function (e) {
+            e.preventDefault();
+            let messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = ''; // Limpiar mensajes anteriores
+
+            let formData = new FormData();
+            let fileInput = document.getElementById('fileInput');
+
+            if (!fileInput.files.length) {
+                messageDiv.innerHTML = '<p class="text-red-500">Por favor, selecciona un archivo antes de continuar.</p>';
+                return;
+            }
+
+            formData.append('file', fileInput.files[0]);
+
+            // Subir el archivo JSON al servidor
+            let response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                messageDiv.innerHTML = '<p class="text-red-500">Error al subir el archivo. Asegúrate de que el formato es correcto.</p>';
+                return;
+            }
+
+            let data = await response.json();
+
+            // Crear gráfico con los datos subidos
+            let plotResponse = await fetch('/plot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!plotResponse.ok) {
+                messageDiv.innerHTML = '<p class="text-red-500">Error al generar el gráfico.</p>';
+                return;
+            }
+
+            let plotData = await plotResponse.json();
+
+            // Mostrar gráfico en la página
+            Plotly.newPlot('plot', plotData.data, plotData.layout);
+
+            // Mensaje de éxito
+            messageDiv.innerHTML = '<p class="text-green-500">Archivo cargado y gráfico generado con éxito.</p>';
+        };
+    </script>
     
     <footer class="bg-gray-900 text-gray-100 py-4">
         <div class="container mx-auto text-center">
