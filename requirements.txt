@@ -2,4 +2,3 @@ flask
 Gunicorn
 pandas
 plotly.express
-os
