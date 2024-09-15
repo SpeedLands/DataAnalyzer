@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App de Análisis de Datos</title>
+
+    <!-- Incluir Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {},
+            },
+        }
+    </script>
+
+    <style>
+        /* Personaliza los estilos si es necesario */
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg border-b border-gray-200">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/" class="text-3xl font-bold text-indigo-600 transition-transform transform hover:scale-110 hover:text-indigo-800">
+                DataAnalyzer
+            </a>
+    
+            <!-- Links del navbar -->
+            <div class="hidden md:flex space-x-6 relative">
+                <a href="/" class="relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 transform hover:scale-105 group">
+                    Inicio
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/dashboard" class="relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 transform hover:scale-105 group">
+                    Análisis de Datos
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/works" class="relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 transform hover:scale-105 group">
+                    Cómo Funciona
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/about" class="relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 transform hover:scale-105 group">
+                    Acerca de
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+            </div>
+    
+            <!-- Botón para dispositivos móviles -->
+            <div class="md:hidden">
+                <button id="navbar-toggle" class="text-gray-700 hover:text-indigo-600 focus:outline-none transition-transform duration-300 transform hover:rotate-90">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    
+        <!-- Menu desplegable en móviles -->
+        <div id="navbar-menu" class="md:hidden hidden px-4 py-4 bg-gray-100 transition-transform duration-300 transform origin-top scale-95">
+            <a href="/" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105">
+                Inicio
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/dashboard" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105">
+                Análisis de Datos
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/works" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105">
+                Cómo Funciona
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/about" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105">
+                Acerca de
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+        </div>
+        
+    </nav>
+    
+    <div class="container mx-auto py-8 px-4">
+
+        
+    </div>
+    
+    <footer class="bg-gray-900 text-gray-100 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 DataAnalyzer. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('navbar-toggle').addEventListener('click', function() {
+            var menu = document.getElementById('navbar-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('scale-100');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('scale-100');
+            }
+        });
+    </script>
+</body>
+</html>

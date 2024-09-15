@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App de Análisis de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Incluir las librerías de jQuery y jQuery Validation -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {},
+            },
+        }
+    </script>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg border-b border-gray-200">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/" class="text-3xl font-bold text-indigo-600 transition-transform transform hover:scale-110 hover:text-indigo-800" aria-label="Inicio">
+                DataAnalyzer
+            </a>
+    
+            <!-- Links del navbar -->
+            <div class="hidden md:flex space-x-6 relative">
+                <a href="/" class="relative text-gray-700 hover:text-indigo-600 transition-transform duration-300 transform hover:scale-105 group" aria-label="Inicio">
+                    Inicio
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/dashboard" class="relative text-gray-700 hover:text-indigo-600 transition-transform duration-300 transform hover:scale-105 group" aria-label="Análisis de Datos">
+                    Análisis de Datos
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/works" class="relative text-gray-700 hover:text-indigo-600 transition-transform duration-300 transform hover:scale-105 group" aria-label="Cómo Funciona">
+                    Cómo Funciona
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <a href="/about" class="relative text-gray-700 hover:text-indigo-600 transition-transform duration-300 transform hover:scale-105 group" aria-label="Acerca de">
+                    Acerca de
+                    <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
+                <button id="open-modal" class="bg-indigo-600 text-white hover:bg-indigo-700 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg py-2 px-4 font-medium transition-all duration-300 ease-in-out transform hover:scale-105" aria-label="Login">
+                    Login
+                </button>
+            </div>
+    
+            <!-- Botón para dispositivos móviles -->
+            <div class="md:hidden">
+                <button id="navbar-toggle" class="text-gray-700 hover:text-indigo-600 focus:outline-none transition-transform duration-300 transform hover:rotate-90" aria-label="Abrir menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    
+        <!-- Menu desplegable en móviles -->
+        <div id="navbar-menu" class="md:hidden flex flex-col px-4 py-4 bg-gray-100 transition-transform duration-300 transform origin-top scale-95">
+            <a href="/" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105" aria-label="Inicio">
+                Inicio
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/dashboard" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105" aria-label="Análisis de Datos">
+                Análisis de Datos
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/works" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105" aria-label="Cómo Funciona">
+                Cómo Funciona
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <a href="/about" class="block text-gray-700 hover:text-indigo-600 py-2 relative group transition-transform duration-300 transform hover:scale-105" aria-label="Acerca de">
+                Acerca de
+                <span class="absolute left-0 bottom-0 w-full h-1 bg-indigo-600 rounded-t-lg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+            <button id="open-modal-1" class="bg-indigo-600 text-white hover:bg-indigo-700 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg py-2 px-4 font-medium transition-all duration-300 ease-in-out transform hover:scale-105 mt-4" aria-label="Login">
+                Login
+            </button>
+        </div>
+        
+    </nav>
+    
+    
+    <div class="container mx-auto py-8 px-4">
+
+        <!-- Sección de bienvenida -->
+        <section class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4 animate__animated animate__fadeIn">Bienvenido a DataAnalyzer</h1>
+            <p class="text-lg text-gray-600 animate__animated animate__fadeIn animate__delay-1s">Tu solución intuitiva para el análisis de datos. Facilita la carga, visualización y transformación de datos con herramientas potentes y accesibles.</p>
+        </section>
+    
+        <!-- Sección de características -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Primer Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-600 mr-4 animate__animated animate__bounceIn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Carga de Datos</h2>
+                </div>
+                <p class="text-gray-700">Sube tus datos en formato JSON y déjalos listos para el análisis. Nuestra herramienta valida y formatea los datos automáticamente.</p>
+            </div>
+
+            <!-- Segundo Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600 mr-4 animate__animated animate__bounceIn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H3" />
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Creación de Gráficas</h2>
+                </div>
+                <p class="text-gray-700">Genera gráficos dinámicos para visualizar tendencias, comparaciones y análisis históricos. Ajusta los rangos de tiempo para una vista detallada.</p>
+            </div>
+
+            <!-- Tercer Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-600 mr-4 animate__animated animate__bounceIn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 7h4v4h-4zm-6 6h4v4H8zm6 0h4v4h-4z" />
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Transformación de Datos</h2>
+                </div>
+                <p class="text-gray-700">Manipula y transforma tus datos según tus necesidades. Combina campos, extrae información específica y cambia la estructura de los datos.</p>
+            </div>
+
+            <!-- Card adicional que ocupa el espacio de los tres anteriores -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 lg:col-span-3 lg:row-span-2 animate__animated animate__fadeIn">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600 mr-4 animate__animated animate__bounceIn" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Comienza a analizar tus datos hoy</h2>
+                </div>
+                <p class="text-gray-700">Descubre el poder del análisis de datos con nuestra plataforma fácil de usar. Accede a funciones avanzadas y lleva tu análisis al siguiente nivel.</p>
+            </div>
+        </section>
+    
+        <!-- Sección de contacto -->
+        <section class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">¿Tienes preguntas?</h2>
+            <p class="text-lg text-gray-600 mb-6">Estamos aquí para ayudarte. Contáctanos para más información o si necesitas asistencia.</p>
+            <a href="/contact" class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-indigo-700 transition-colors duration-300 transform hover:scale-105">Contáctanos</a>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 hidden">
+        <div class="flex justify-center items-center h-full">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto relative">
+                <!-- Contenedor para el título y el botón de cerrar -->
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold">Iniciar Sesión o Registrarse</h2>
+                    <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Tabs para iniciar sesión y registrarse -->
+                <div class="mb-4">
+                    <button id="login-tab" class="py-2 px-4 text-indigo-600 hover:text-indigo-800 border-b-2 border-indigo-600">Iniciar Sesión</button>
+                    <button id="register-tab" class="py-2 px-4 text-gray-600 hover:text-gray-800">Registrarse</button>
+                </div>
+                
+                <!-- Formulario de Iniciar Sesión -->
+                <div id="login-form">
+                    <form id="login-form-element">
+                        <div class="mb-4">
+                            <label for="login_email" class="block text-gray-700">Correo Electrónico</label>
+                            <input type="email" id="login_email" name="login_email" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Tu correo electrónico" required>
+                        </div>
+                        <div class="mb-4 relative">
+                            <label for="login_password" class="block text-gray-700">Contraseña</label>
+                            <input type="password" id="login_password" name="login_password" class="w-full px-3 py-2 border border-gray-300 rounded-lg pr-10" placeholder="Tu contraseña" required>
+                            <button type="button" id="toggle-password" class="absolute inset-y-11 right-0 flex items-center px-3 text-gray-600">
+                                <i class="bi bi-eye" id="toggle-password-icon"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg">Iniciar Sesión</button>
+                    </form>
+                </div>
+                              
+    
+                <!-- Formulario de Registrarse -->
+                <div id="register-form" class="hidden">
+                    <form id="register-form-element">
+                        <div class="mb-4">
+                            <label for="register_email" class="block text-gray-700">Correo Electrónico</label>
+                            <input type="email" id="register_email" name="register_email" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Tu correo electrónico" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="register_password" class="block text-gray-700">Contraseña</label>
+                            <input type="password" id="register_password" name="register_password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Tu contraseña" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="register_confirm_password" class="block text-gray-700">Confirmar Contraseña</label>
+                            <input type="password" id="register_confirm_password" name="register_confirm_password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Confirma tu contraseña" required>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-gray-900 text-gray-100 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 DataAnalyzer. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
