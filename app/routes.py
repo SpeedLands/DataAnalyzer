@@ -4,7 +4,6 @@ from app.services.plot_service import create_plot_line, create_plot_from_file
 from app.services.pusher_service import send_pusher_event
 import os
 import pandas as pd
-import request
 
 main = Blueprint('main', __name__)
 
