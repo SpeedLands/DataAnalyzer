@@ -4,6 +4,7 @@ from app.services.plot_service import create_plot_line, create_plot_from_file
 from app.services.pusher_service import send_pusher_event
 import os
 import pandas as pd
+import request
 
 main = Blueprint('main', __name__)
 
@@ -30,6 +31,14 @@ def contact():
 @main.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@app.route("/alumnos")
+def alumnos():
+    return render_template("alumnos.html")
+
+@app.route("/alumnos/guardar", methods=["POST"])
+def alumnosGuardar():
+    return f"Matrícula: {request.form["txtMatriculaFA"]} Nombre y Apellido: {request.form["txtNombreApellidoFA"]}"
 
 @main.route('/register', methods=['POST'])
 def register():
