@@ -31,11 +31,11 @@ def contact():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-@app.route("/alumnos")
+@main.route("/alumnos")
 def alumnos():
     return render_template("alumnos.html")
 
-@app.route("/alumnos/guardar", methods=["POST"])
+@main.route("/alumnos/guardar", methods=["POST"])
 def alumnosGuardar():
     matricula = request.form["txtMatriculaFA"]
     nombre = request.form["txtNombreApellidoFA"]
