@@ -72,6 +72,7 @@
                 event.preventDefault();
                 $.post("/alumnos/guardar", $(this).serialize(), function (respuesta) {
                     console.log(respuesta);
+                    
                 });
             });
         });
