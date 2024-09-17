@@ -51,52 +51,31 @@
     </div>
 
     <script>
-    window.addEventListener("load", function (event) {
-        // Validación del formulario
-        $("#frmAlumnos").validate({
-            messages: {
-                txtMatriculaFA: {
-                    required: "Ingresa la matrícula",
-                    minlength: "La matrícula es de 8 dígitos",
-                    maxlength: "La matrícula es de 8 dígitos",
-                    digits: "La matrícula es de solo números"
-                },
-                txtNombreApellidoFA: {
-                    required: "Ingresa tu nombre y apellido",
-                    minlength: "Ingresa más de 10 caracteres",
-                    maxlength: "Ingresa menos de 25 caracteres"
+        window.addEventListener("load", function (event) {
+            $("#frmAlumnos").validate({
+                messages: {
+                    txtMatriculaFA: {
+                        required: "Ingresa la matrícula",
+                        minlength: "La matrícula es de 8 dígitos",
+                        maxlength: "La matrícula es de 8 dígitos",
+                        digits: "La matrícula es de solo números"
+                    },
+                    txtNombreApellidoFA: {
+                        required: "Ingresa tu nombre y apellido",
+                        minlength: "Ingresa más de 10 caracteres",
+                        maxlength: "Ingresa menos de 25 caracteres"
+                    }
                 }
-            }
-        });
+            });
 
-        // Manejo del envío del formulario
-        $("#frmAlumnos").submit(function (event) {
-            event.preventDefault();
-
-            // Envía los datos del formulario al servidor
-            $.post("/alumnos/guardar", $(this).serialize(), function (respuesta) {
-                // Verifica si la respuesta tiene éxito (puede depender del formato del servidor)
-                    // Datos recibidos desde el servidor (ajusta según la respuesta)
-                    let matricula = respuesta.matricula;
-                    let nombreApellido = respuesta.nombreApellido;
-
-                    // Crea una nueva fila en la tabla
-                    let nuevaFila = `
-                        <tr>
-                            <td class="py-2 px-4 border-b">${matricula}</td>
-                            <td class="py-2 px-4 border-b">${nombreApellido}</td>
-                        </tr>`;
-
-                    // Añade la nueva fila al cuerpo de la tabla
-                    $("#tbodyAlumnos").append(nuevaFila);
-
-                    // Limpia los campos del formulario
-                    $("#frmAlumnos")[0].reset();
-                
+            $("#frmAlumnos").submit(function (event) {
+                event.preventDefault();
+                $.post("/alumnos/guardar", $(this).serialize(), function (respuesta) {
+                    console.log(respuesta);
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>
