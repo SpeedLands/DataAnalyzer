@@ -76,7 +76,6 @@
             // Envía los datos del formulario al servidor
             $.post("/alumnos/guardar", $(this).serialize(), function (respuesta) {
                 // Verifica si la respuesta tiene éxito (puede depender del formato del servidor)
-                if (respuesta.success) {
                     // Datos recibidos desde el servidor (ajusta según la respuesta)
                     let matricula = respuesta.matricula;
                     let nombreApellido = respuesta.nombreApellido;
@@ -93,10 +92,7 @@
 
                     // Limpia los campos del formulario
                     $("#frmAlumnos")[0].reset();
-                } else {
-                    // Maneja los errores si es necesario
-                    alert("Ocurrió un error al guardar el alumno.");
-                }
+                
             });
         });
     });
