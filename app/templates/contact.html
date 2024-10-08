@@ -10,8 +10,9 @@
     <!-- Incluir las librerías de jQuery y jQuery Validation -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.tailwindcss.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.tailwindcss.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
 
@@ -101,21 +102,21 @@
             <!-- Formulario de contacto -->
             <form id="contactForm" method="POST" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
                 <div class="mb-4">
-                    <label for="name" class="block text-left text-gray-700 font-bold mb-2">Nombre</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Tu nombre" aria-required="true" aria-invalid="false">
+                    <label for="nombre" class="block text-left text-gray-700 font-bold mb-2">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Tu nombre" aria-required="true" aria-invalid="false">
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block text-left text-gray-700 font-bold mb-2">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Tu correo electrónico" aria-required="true" aria-invalid="false">
+                    <label for="correo" class="block text-left text-gray-700 font-bold mb-2">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Tu correo electrónico" aria-required="true" aria-invalid="false">
                 </div>
                 <div class="mb-4">
-                    <label for="message" class="block text-left text-gray-700 font-bold mb-2">Mensaje</label>
-                    <textarea id="message" name="message" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" rows="6" placeholder="Escribe tu mensaje aquí" aria-required="true" aria-invalid="false"></textarea>
+                    <label for="asunto" class="block text-left text-gray-700 font-bold mb-2">Mensaje</label>
+                    <textarea id="asunto" name="asunto" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" rows="6" placeholder="Escribe tu mensaje aquí" aria-required="true" aria-invalid="false"></textarea>
                 </div>
                 <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105">Enviar</button>
             </form>
         </section>
-        <section class="text-center mb-12">
+        <section class="text-center mb-12 relative overflow-x-auto">
             <table id="tabla_contacto" class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg display">
                 <thead>
                     <tr class="bg-indigo-600">
@@ -177,56 +178,11 @@
 
     <script>
         $(document).ready(function () {
-            $.validator.addMethod("lettersonly", function (value, element) {
-                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
-            }, "Solo se permiten letras.");
-
-            $("#contactForm").validate({
-                errorClass: "error",
-                rules: {
-                    email: {
-                        required: true,
-                        email: true,
-                        minlength: 5,
-                        maxlength: 50
-                    },
-                    name: {
-                        required: true,
-                        lettersonly: true,
-                        minlength: 10,
-                        maxlength: 50
-                    },
-                    message: {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 50
-                    }
-                },
-                messages: {
-                    email: {
-                        required: "Por favor, ingresa tu correo electrónico.",
-                        email: "Por favor, ingresa un correo electrónico válido.",
-                        minlength: "El correo electrónico debe tener al menos 5 caracteres.",
-                        maxlength: "El correo electrónico no puede exceder los 50 caracteres."
-                    },
-                    name: {
-                        required: "Por favor, ingresa tu nombre completo.",
-                        lettersonly: "Solo se permiten letras.",
-                        minlength: "El nombre debe tener al menos 10 caracteres.",
-                        maxlength: "El nombre no puede exceder los 50 caracteres."
-                    },
-                    message: {
-                        required: "Por favor, ingresa el mensaje.",
-                        minlength: "El mensaje debe tener al menos 10 caracteres.",
-                        maxlength: "El mensaje no puede exceder los 50 caracteres."
-                    }
-                }
-            });
             var url = '/fetch_contacto';
 
             $('#tabla_contacto').DataTable({
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/2.1.7/i18n/es-MX.json',
+                    url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
                 },
                 "ajax":{
                     "url": url,
@@ -272,6 +228,24 @@
         function cerrarModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
         }
+
+        $("#contactForm").on('submit', function(e) {
+            e.preventDefault();
+            
+            var formData = $(this).serialize();  // Convierte el formulario en una cadena de consulta para GET
+
+            $.ajax({
+                url: '/add_contacto?' + formData,  // Agrega los parámetros a la URL para el método GET
+                type: 'GET',
+                success: function(response) {
+                    alert(response.mensaje);  // Muestra el mensaje de éxito
+                    $("#contactForm")[0].reset();
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);  // Manejo de errores
+                }
+            });
+        });
 
         $('#formEditarContacto').on('submit', function(e) {
             e.preventDefault();
