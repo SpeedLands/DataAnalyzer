@@ -145,12 +145,12 @@
                     <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" id="correoElectronico" name="correoElectronico">
                 </div>
                 <div class="mb-4">
-                    <label for="nombre" class="block text-gray-700">Nombre</label>
-                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" id="nombre" name="nombre">
+                    <label for="nombred" class="block text-gray-700">Nombre</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" id="nombred" name="nombred">
                 </div>
                 <div class="mb-4">
-                    <label for="asunto" class="block text-gray-700">Asunto</label>
-                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" id="asunto" name="asunto">
+                    <label for="asuntod" class="block text-gray-700">Asunto</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" id="asuntod" name="asuntod">
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg mr-2" onclick="cerrarModal('editarModal')">Cancelar</button>
@@ -216,8 +216,8 @@
                     $('#loadingOverlay').addClass('hidden');
                     $('#idContacto').val(data.Id_Contacto);
                     $('#correoElectronico').val(data.Correo_Electronico);
-                    $('#nombre').val(data.Nombre);
-                    $('#asunto').val(data.Asunto);
+                    $('#nombred').val(data.Nombre);
+                    $('#asuntod').val(data.Asunto);
                     
                     // Mostrar el modal
                     document.getElementById('editarModal').classList.remove('hidden');
